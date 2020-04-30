@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Einkaufsliste{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+<div class="container">
+    <h1>Einkaufsliste</h1>
+    <table class="table table-striped">
+    <tr>
+        <th>Anzahl</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+                <button type="button" onclick="location.href=('/edit/{{item.id}}');" class="btn btn-sm btn-info">Bearbeiten</button>
+                <a href='/delete/{{item.id}}' class="btn btn-sm btn-danger">Löschen</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+   
+
+    <h1>Neues Produkt hinzufügen</h1>
+    {{ form_start(form) }}
+        <div class="row mb-12">
+            <div class="col">
+                {{ form_label(form.amount, "Anzahl") }}
+                {{ form_widget(form.amount) }}
+            </div>
+        </div>
+
+        <div class="row mb-12">
+            <div class="col">
+                {{ form_label(form.name, "Name") }}
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <br/>
+        <div class="row mb-12">
+            <div class="col">
+                {{ form_row(form.submit, { 'label': 'Hinzufügen'}) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
